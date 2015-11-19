@@ -1,0 +1,7 @@
+{
+    "name": "Iteration Planning Board (Unfiltered Utilization)",
+    "className": "iteration-planning-board-unfiltered-utilization",
+    "server": "https://demo-west.rallydev.com",
+    "sdk": "2.0",
+    "apiKey": "_PUT_APIKEY_HERE_"
+}
