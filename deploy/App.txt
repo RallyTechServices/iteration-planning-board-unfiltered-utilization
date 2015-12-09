@@ -3,11 +3,11 @@
 <head>
     <title>Iteration Planning Board (Unfiltered Utilization)</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Thu Nov 19 2015 14:46:39 GMT-0700 (MST) -->
+    <!--  Build Date: Tue Dec 08 2015 22:01:05 GMT-0600 (CST) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Thu Nov 19 2015 14:46:39 GMT-0700 (MST)";
-        var CHECKSUM = 3847063247;
+        var APP_BUILD_DATE = "Tue Dec 08 2015 22:01:05 GMT-0600 (CST)";
+        var CHECKSUM = 4310328438;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -382,7 +382,7 @@ Ext.define("iteration-planning-board-unfiltered-utilization", {
      */
     Ext.override(Rally.ui.gridboard.planning.TimeboxColumnProgressBar, {
         pointTotal: undefined,
-
+        allowEdit: false,
         _getTotalPointCount: function() {
             if (this.pointTotal){
                 return this.pointTotal;
@@ -392,6 +392,38 @@ Ext.define("iteration-planning-board-unfiltered-utilization", {
                 var points = this._getRecordValue(card.getRecord(), this.pointField);
                 return Ext.isNumber(points) ? memo + points : memo;
             }, 0, this);
+        },
+        _showEditIcon: function() {
+           if (this.allowEdit){
+               this.getEl().down('.icon-edit').show();
+           }
+        },
+        _createTooltip: function(){
+            if (!this.allowEdit){
+                return;
+            }
+
+            if (this.tooltip) {
+                this._destroyTooltip();
+            }
+
+            this.tooltip = Ext.create('Rally.ui.tooltip.ToolTip', {
+                cls: 'set-planned-velocity-tooltip',
+                bodyStyle: 'text-align: center;',
+                width: 150,
+                anchor: 'top',
+                target: this._getProgressBarContainer(),
+                html: 'Edit Planned Velocity'
+            });
+        },
+        _onPlannedVelocityLinkClick: function(event) {
+            event.preventDefault();
+
+          if (this.allowEdit){
+              this._disableTooltip();
+              this._createPopoverWithData();
+          }
+
         }
     });
 })();
