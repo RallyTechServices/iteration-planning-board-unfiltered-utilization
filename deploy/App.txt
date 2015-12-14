@@ -3,11 +3,11 @@
 <head>
     <title>Iteration Planning Board (Unfiltered Utilization)</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Tue Dec 08 2015 22:01:05 GMT-0600 (CST) -->
+    <!--  Build Date: Sun Dec 13 2015 21:26:02 GMT-0700 (MST) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Tue Dec 08 2015 22:01:05 GMT-0600 (CST)";
-        var CHECKSUM = 4310328438;
+        var APP_BUILD_DATE = "Sun Dec 13 2015 21:26:02 GMT-0700 (MST)";
+        var CHECKSUM = 5381202498;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -425,6 +425,38 @@ Ext.define("iteration-planning-board-unfiltered-utilization", {
           }
 
         }
+    });
+})();
+(function() {
+    var Ext = window.Ext4 || window.Ext;
+
+    /**
+     * The Ext.XTemplate used to render the percent done of a timebox, like a iteration, release, or generic timeframe.
+     */
+    Ext.override(Rally.ui.renderer.template.progressbar.TimeboxProgressBarTemplate, {
+
+        template: [
+            '<tpl if="this.shouldShowPercentDone(values)">',
+            '<div style="{[this.getOffsetDimensions()]}"></div>',
+            '<div class="progress-bar-container field-{[this.percentDoneName]} {[this.getClickableClass()]} {[this.getContainerClass(values)]}" style="{[this.getDimensionStyle()]}">',
+            '<div class="rly-progress-bar" style="background-color: {[this.calculateColorFn(values)]}; width: {[this.calculateWidth(values)]}; "></div>',
+            '<tpl if="this.showDangerNotificationFn(values)">',
+            '<div class="progress-bar-danger-notification"></div>',
+            '</tpl>',
+            '<div class="progress-bar-label">',
+            '{[this.generateAmountCompleteText(values)]}',
+            ' of ',
+            '{[this.generateTotalPlannedVelocityText(values)]}',
+            ' {[this.generateChildrenTotalVelocityText(values)]} ',
+            '<span class="icon-edit" style="position:relative; top: 1px;"></span>',
+            '</div>',
+            '</div>',
+            '<div style="{[this.getOffsetDimensions()]}">',
+            '<span class="progressbar-percentage">{[this.calculatePercent(values)]}%</span>',
+            '</div>',
+            '</tpl>'
+        ]
+
     });
 })();
             
