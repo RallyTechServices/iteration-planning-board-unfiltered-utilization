@@ -3,11 +3,11 @@
 <head>
     <title>Iteration Planning Board (Unfiltered Utilization)</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Sun Dec 13 2015 21:26:02 GMT-0700 (MST) -->
+    <!--  Build Date: Tue Dec 29 2015 11:57:25 GMT-0700 (MST) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Sun Dec 13 2015 21:26:02 GMT-0700 (MST)";
-        var CHECKSUM = 5381202498;
+        var APP_BUILD_DATE = "Tue Dec 29 2015 11:57:25 GMT-0700 (MST)";
+        var CHECKSUM = 5696445107;
     </script>
     
     <script type="text/javascript" src="/apps/2.0/sdk.js"></script>
@@ -455,8 +455,15 @@ Ext.define("iteration-planning-board-unfiltered-utilization", {
             '<span class="progressbar-percentage">{[this.calculatePercent(values)]}%</span>',
             '</div>',
             '</tpl>'
-        ]
+        ],
 
+        config: {
+            generateTotalPlannedVelocityText: function(recordData) {
+                // The progressbar links to "Set Planned Velocity" if there is no planned velocity for the current
+                // project and iteration (the "parent"), so we check that even though the total is what gets displayed.
+                return (recordData.total) ? Ext.util.Format.round(recordData.total, 2) : '--';
+            }
+        }
     });
 })();
             

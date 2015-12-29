@@ -26,7 +26,14 @@
             '<span class="progressbar-percentage">{[this.calculatePercent(values)]}%</span>',
             '</div>',
             '</tpl>'
-        ]
+        ],
 
+        config: {
+            generateTotalPlannedVelocityText: function(recordData) {
+                // The progressbar links to "Set Planned Velocity" if there is no planned velocity for the current
+                // project and iteration (the "parent"), so we check that even though the total is what gets displayed.
+                return (recordData.total) ? Ext.util.Format.round(recordData.total, 2) : '--';
+            }
+        }
     });
 })();
